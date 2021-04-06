@@ -109,7 +109,7 @@ public:
 
                 ekran->dScreen[karakterx][karaktery] = karakters;
                 ekran->drawScreen();
-                Sleep(60);
+                Sleep(50);
             }
             n = n / 2;
             jump();
@@ -128,7 +128,7 @@ public:
                 ekran->dScreen[karakterx][karaktery] = karakters;
                 ekran->drawScreen();
 
-                Sleep(60);
+                Sleep(100);
             }
     }
 
@@ -188,8 +188,5 @@ int main()
         Sleep(70);
     }
 
-    ekran.drawScreen();
-    cout << "Game Over" << endl;
-    system("pause");
     return 0;
 }
