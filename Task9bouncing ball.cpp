@@ -3,7 +3,7 @@
 #include <windows.h>
 using namespace std;
 
-int genislik = 50, yukseklik = 20, uzunluk;
+int genislik = 50, yukseklik = 25, uzunluk;
 bool gameLoop = true;
 
 int n = 1;
@@ -93,7 +93,8 @@ public:
     Dinamik() {
         karakterx = 0;
         karaktery = 0;
-        a = 0;
+        speed = 20;
+        yon = 0;
         karakters = ' ';
         ekran = NULL;
     }
@@ -101,15 +102,16 @@ public:
             while (karaktery != yukseklik - 2) {
                 ekran->dScreen[karakterx][karaktery] = ' ';
                 karaktery += 2;
-
+                speed -= 10;
                 if (karakterx == genislik - 2 || karakterx == 1) {
-                    a *= -1;
+                    yon *= -1;
                 }
-                karakterx = karakterx + a;
+                karakterx = karakterx + yon;
 
                 ekran->dScreen[karakterx][karaktery] = karakters;
                 ekran->drawScreen();
-                Sleep(50);
+
+                Sleep(speed);
             }
             n = n / 2;
             jump();
@@ -117,23 +119,24 @@ public:
     }
 
     void jump() {
-            for (int i = 0; i < n; i++) {
+            for (int i = 1; i <= n; i++) {
                 ekran->dScreen[karakterx][karaktery] = ' ';
                 karaktery -= 2;
+                speed += 10;
                 if (karakterx == genislik - 2 || karakterx == 1) {
-                    a *= -1;
+                    yon *= -1;
                 }
-                karakterx = karakterx + a; 
+                karakterx = karakterx + yon; 
 
                 ekran->dScreen[karakterx][karaktery] = karakters;
                 ekran->drawScreen();
 
-                Sleep(100);
+                Sleep(speed);
             }
     }
 
 protected:
-    int karakterx, karaktery, a;
+    int karakterx, karaktery, yon , speed;
     char karakters;
     Ekran* ekran;
 };
@@ -154,20 +157,20 @@ public:
         {
             ekran->dScreen[karakterx][karaktery] = ' ';
             karakterx++;
-            a = 1;
+            yon = 1;
         }
         else if (GetAsyncKeyState(VK_LEFT) < 0 && karakterx > 1)
         {
             ekran->dScreen[karakterx][karaktery] = ' ';
             karakterx--;
-            a = -1;
+            yon = -1;
         }
         else if (GetAsyncKeyState(VK_DOWN) < 0 )
         {
-            a = 0;
+            yon = 0;
         }
         else if (GetAsyncKeyState(VK_SPACE) < 0 && karaktery == yukseklik - 2) {
-            n = 6;
+            n = 8;
             jump();
         }
 
